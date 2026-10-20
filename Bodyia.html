@@ -1,0 +1,760 @@
+﻿<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Богдан Загребельний | #77 & #18 — Презентація Футболіста</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Teko', 'sans-serif'],
+                    },
+                    colors: {
+                        bgdark: '#08080c',
+                        carddark: '#101018',
+                        ksl: {
+                            purple: '#7c3aed',
+                            gold: '#facc15',
+                        },
+                        kit18: {
+                            pink: '#ec4899',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #08080c;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Ambient Background */
+        .bg-ambient {
+            background-image: 
+                radial-gradient(circle at 15% 12%, rgba(124, 58, 237, 0.16) 0%, transparent 40%),
+                radial-gradient(circle at 85% 45%, rgba(250, 204, 21, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 20% 75%, rgba(236, 72, 153, 0.12) 0%, transparent 45%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08080c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27273a;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+
+        /* 3D FUT Card Styling */
+        .fut-perspective {
+            perspective: 1200px;
+        }
+        .fut-card {
+            transform-style: preserve-3d;
+            transition: transform 0.18s ease-out, box-shadow 0.3s ease;
+            position: relative;
+            background: linear-gradient(145deg, #2e1065 0%, #4c1d95 38%, #1e1b4b 75%, #090910 100%);
+            border: 2px solid rgba(250, 204, 21, 0.75);
+            box-shadow: 
+                0 30px 60px -15px rgba(124, 58, 237, 0.45),
+                0 0 35px rgba(250, 204, 21, 0.15),
+                inset 0 0 25px rgba(250, 204, 21, 0.18);
+        }
+
+        /* KSL Golden Stripes Overlay on Card */
+        .ksl-stripes {
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                rgba(250, 204, 21, 0.09) 20px,
+                rgba(250, 204, 21, 0.09) 22px
+            );
+        }
+
+        /* Holographic Glare */
+        .fut-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: 2rem;
+            background: radial-gradient(circle at 50% 50%, rgba(250, 204, 21, 0.28), rgba(124, 58, 237, 0.15) 40%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+            z-index: 25;
+            mix-blend-mode: screen;
+        }
+        .fut-card:hover .fut-glare {
+            opacity: 1;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Smooth Scroll Down Indicator */
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+        .animate-scroll-down {
+            animation: bounceSlow 2.2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-ambient antialiased selection:bg-ksl-purple selection:text-white">
+
+    <!-- MINIMALIST STICKY HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-[#08080c]/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#top" class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-ksl-purple to-ksl-gold p-0.5">
+                    <div class="w-full h-full bg-[#08080c] rounded-[10px] flex items-center justify-center font-display text-xl font-bold text-ksl-gold pt-0.5">
+                        77
+                    </div>
+                </div>
+                <span class="font-bold tracking-wide text-sm sm:text-base text-white">БОГДАН ЗАГРЕБЕЛЬНИЙ</span>
+            </a>
+
+            <nav class="hidden sm:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <a href="#top" class="hover:text-ksl-gold transition">Картка</a>
+                <a href="#ksl-77" class="hover:text-ksl-gold transition">Матчі KSL #77</a>
+                <a href="#kit-18" class="hover:text-kit18-pink transition">Форма #18</a>
+                <a href="#off-pitch" class="hover:text-white transition">Поза полем</a>
+            </nav>
+
+            <div class="text-xs font-bold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-ksl-gold">
+                #77 / #18 🇺🇦
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN SCROLLYTELLING CONTENT -->
+    <main id="top" class="pt-16">
+
+        <!-- HERO SECTION: 3D FUT CARD + PLAYER TITLE -->
+        <section class="min-h-[calc(100vh-4rem)] flex flex-col justify-between py-12 lg:py-16 relative">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full my-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Clean Typography & Bio -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
+                        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-ksl-purple/15 border border-ksl-purple/40 text-ksl-gold text-xs font-bold uppercase tracking-widest">
+                            <span>🇺🇦 Україна</span>
+                            <span class="text-white/30">•</span>
+                            <span>CAM / LW</span>
+                            <span class="text-white/30">•</span>
+                            <span>Номер #77 & #18</span>
+                        </div>
+
+						<div class="space-y-3 -ml-4 lg:-ml-12 text-left">
+							<h1 class="font-display text-6xl sm:text-7xl lg:text-8xl font-bold uppercase tracking-tight leading-[0.92] text-white">
+								БОГДАН <br>
+									<span class="text-transparent bg-clip-text bg-gradient-to-r from-ksl-gold via-purple-400 to-kit18-pink">
+										ЗАГРЕБЕЛЬНИЙ
+									</span>
+								</h1>
+							<h2 class="font-display text-xl sm:text-2xl font-semibold uppercase tracking-wider text-ksl-gold">
+								⚡ Легенда Боярки і всього Фастівського району!
+							</h2>
+						</div>
+
+                        <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
+                            Креативний атакувальний гравець із вибуховою стартовою швидкістю, м’яким контролем м’яча в повітрі та впевненим дриблінгом обома ногами. Виступає під номером <strong class="text-ksl-gold">#77</strong> у турнірі KSL та під номером <strong class="text-kit18-pink">#18</strong>.
+                        </p>
+
+                        <!-- Minimalist Key Badges -->
+                        <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto lg:mx-0 pt-2">
+                            <div class="p-4 rounded-2xl bg-carddark border border-white/10">
+                                <div class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold">Рейтинг</div>
+                                <div class="font-display text-4xl font-bold text-ksl-gold mt-0.5 leading-none">88 OVR</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-carddark border border-white/10">
+                                <div class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold">Позиція</div>
+                                <div class="font-display text-4xl font-bold text-white mt-0.5 leading-none">CAM / LW</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-carddark border border-white/10">
+                                <div class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold">Ігрові номери</div>
+                                <div class="font-display text-4xl font-bold text-kit18-pink mt-0.5 leading-none">#77 • #18</div>
+                            </div>
+                        </div>
+
+                        <div class="pt-3">
+                            <a href="#ksl-77" class="inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-ksl-purple to-kit18-pink text-white font-bold text-sm sm:text-base shadow-xl shadow-ksl-purple/25 hover:opacity-95 transition">
+                                <span>Дивитися історію в кадрах</span>
+                                <i class="fa-solid fa-arrow-down animate-bounce"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive 3D EA Sports FC Card -->
+                    <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                        <div class="fut-perspective w-full max-w-[350px]">
+                            <div id="futCard" class="fut-card ksl-stripes rounded-[2rem] p-6 select-none">
+                                <!-- Holographic Glare Layer -->
+                                <div id="futGlare" class="fut-glare"></div>
+
+                                <!-- Top Row: Rating, Position, Flag & Numbers -->
+                                <div class="relative z-10 flex justify-between items-start">
+                                    <div class="flex flex-col items-center bg-black/55 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-ksl-gold/40">
+                                        <span class="font-display text-5xl font-bold leading-none text-ksl-gold">88</span>
+                                        <span class="font-display text-xl font-bold tracking-wider text-white leading-tight mt-0.5">CAM / LW</span>
+                                        <div class="w-8 h-px bg-white/20 my-1"></div>
+                                        <span class="text-base leading-none" title="Україна">🇺🇦</span>
+                                    </div>
+
+                                    <div class="flex flex-col items-end gap-1.5">
+                                        <span class="px-3.5 py-1 rounded-xl bg-ksl-gold text-black font-display text-2xl font-bold leading-none shadow-md">
+                                            #77 / #18
+                                        </span>
+                                        <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-lg bg-black/60 text-purple-200 border border-white/10">
+                                            KSL • IRON NATION
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Player Image on Card -->
+                                <div class="relative z-10 my-4 rounded-2xl overflow-hidden aspect-[4/4] border-2 border-ksl-gold/40 shadow-inner bg-black cursor-pointer" onclick="openLightbox(0)">
+                                    <img 
+                                        src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_6_2026-10-21_00-02-09.jpg" 
+                                        onerror="this.src=''"
+                                        alt="Богдан Загребельний #77" 
+                                        class="w-full h-full object-cover object-top hover:scale-105 transition duration-500"
+                                    >
+                                    <div class="absolute inset-0 bg-gradient-to-t from-[#090910] via-transparent to-transparent opacity-80"></div>
+                                </div>
+
+                                <!-- Player Name on Card -->
+                                <div class="relative z-10 text-center border-b border-ksl-gold/30 pb-2 mb-3">
+                                    <div class="font-display text-3xl font-bold tracking-wider uppercase text-white drop-shadow">
+                                        ЗАГРЕБЕЛЬНИЙ
+                                    </div>
+                                </div>
+
+                                <!-- Fixed 6 FUT Stats -->
+                                <div class="relative z-10 grid grid-cols-2 gap-x-6 gap-y-1 px-3 font-display text-2xl">
+                                    <div class="flex items-center justify-between border-r border-white/15 pr-4">
+                                        <span class="text-gray-300 font-semibold">PAC</span>
+                                        <span class="font-bold text-ksl-gold">91</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pl-1">
+                                        <span class="text-gray-300 font-semibold">DRI</span>
+                                        <span class="font-bold text-ksl-gold">90</span>
+                                    </div>
+                                    <div class="flex items-center justify-between border-r border-white/15 pr-4">
+                                        <span class="text-gray-300 font-semibold">SHO</span>
+                                        <span class="font-bold text-white">86</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pl-1">
+                                        <span class="text-gray-300 font-semibold">DEF</span>
+                                        <span class="font-bold text-white">75</span>
+                                    </div>
+                                    <div class="flex items-center justify-between border-r border-white/15 pr-4">
+                                        <span class="text-gray-300 font-semibold">PAS</span>
+                                        <span class="font-bold text-ksl-gold">85</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pl-1">
+                                        <span class="text-gray-300 font-semibold">PHY</span>
+                                        <span class="font-bold text-white">84</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scroll Down Prompt -->
+            <div class="text-center pt-8 hidden sm:block">
+                <a href="#ksl-77" class="inline-flex flex-col items-center text-xs uppercase tracking-widest text-gray-500 hover:text-ksl-gold transition animate-scroll-down">
+                    <span>Гортай вниз</span>
+                    <i class="fa-solid fa-chevron-down mt-1"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- BLOCK 1: МАТЧІ KSL • НОМЕР #77 -->
+        <section id="ksl-77" class="py-20 lg:py-28 border-t border-white/10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-14">
+                
+                <!-- Section Header -->
+                <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-ksl-purple/20 border border-ksl-gold/40 text-ksl-gold text-xs font-bold uppercase tracking-widest mb-3">
+                            Блок 01 • Фіолетово-золота форма
+                        </div>
+                        <h2 class="font-display text-5xl sm:text-6xl font-bold uppercase text-white leading-none">
+                            МАТЧІ KSL <span class="text-ksl-gold">• НОМЕР #77</span>
+                        </h2>
+                    </div>
+                    <p class="text-gray-400 text-sm sm:text-base max-w-md">
+                        Виступи за команду Iron Nation FC у лізі KSL. Поєднання ігрової дисципліни, технічної обробки м'яча та гостроти біля чужих воріт.
+                    </p>
+                </div>
+
+                <!-- Large Featured Card: photo_6 -->
+                <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-ksl-gold/50 overflow-hidden shadow-2xl transition">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
+                        <div class="lg:col-span-7 relative overflow-hidden bg-black aspect-[4/4] sm:aspect-[16/11] cursor-pointer" onclick="openLightbox(0)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_2026-10-21_00-35-28.jpg"
+                                onerror="this.src='https://placehold.co/900x700/2e1065/facc15?text=KSL+%2377'"
+                                alt="Концентрація та лідерство на полі" 
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-ksl-gold/50 text-ksl-gold text-xs font-bold">
+                                #77 KSL • IRON NATION FC
+                            </span>
+                        </div>
+                        <div class="lg:col-span-5 p-8 sm:p-10 space-y-4">
+                            <div class="text-xs font-bold uppercase tracking-widest text-ksl-gold">Кадр 01 / Лідерство</div>
+                            <h3 class="font-display text-4xl font-bold uppercase text-white leading-tight">
+                                Концентрація та лідерство на полі
+                            </h3>
+                            <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                                Повна залученість у кожен ігровий епізод. Богдан читає гру, тримає темп команди та завжди готовий відкритися під передачу у вільній зоні.
+                            </p>
+                            <button onclick="openLightbox(0)" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-ksl-gold hover:underline pt-2">
+                                <i class="fa-solid fa-expand"></i> Відкрити фото на весь екран
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Side-by-Side Large Cards: photo_5 & photo_7 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Card: photo_5 -->
+                    <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-ksl-purple/60 overflow-hidden shadow-2xl transition flex flex-col">
+                        <div class="relative aspect-[4/4] overflow-hidden bg-black cursor-pointer" onclick="openLightbox(1)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_1_2026-10-21_00-02-09.jpg"
+                                onerror="this.src='https://placehold.co/800x800/2e1065/facc15?text=Air+Control+%2377'"
+                                alt="Техніка роботи з м'ячем у повітрі" 
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl bg-ksl-purple/90 text-white text-xs font-bold">
+                                #77 • FIRST TOUCH
+                            </span>
+                        </div>
+                        <div class="p-7 sm:p-8 space-y-2">
+                            <div class="text-xs font-bold uppercase tracking-widest text-purple-400">Кадр 02 / Координація</div>
+                            <h3 class="font-display text-3xl sm:text-4xl font-bold uppercase text-white">
+                                Техніка роботи з м'ячем у повітрі
+                            </h3>
+                            <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                                Ефектне приборкування верхового м'яча в русі без втрати огляду поля. Висока пластичність та м'який перший дотик.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card: photo_7 -->
+                    <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-ksl-gold/60 overflow-hidden shadow-2xl transition flex flex-col">
+                        <div class="relative aspect-[4/4] overflow-hidden bg-black cursor-pointer" onclick="openLightbox(2)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_5_2026-10-21_00-02-09.jpg" 
+                                onerror="this.src='https://placehold.co/800x800/2e1065/facc15?text=Select+Ball+%2377'"
+                                alt="Контроль м'яча SELECT поблизу воріт" 
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl bg-ksl-gold text-black text-xs font-bold">
+                               
+                            </span>
+                        </div>
+                        <div class="p-7 sm:p-8 space-y-2">
+                            <div class="text-xs font-bold uppercase tracking-widest text-ksl-gold">Кадр 03 / Гострота в атаці</div>
+                            <h3 class="font-display text-3xl sm:text-4xl font-bold uppercase text-white">
+                                Контроль м'яча SELECT поблизу воріт
+                            </h3>
+                            <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                                Холоднокровна робота корпусом і стопою на самій лінії воріт для збереження м'яча та створення гольового моменту.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCK 2: ДИНАМІКА ТА ДРИБЛІНГ • НОМЕР #18 -->
+        <section id="kit-18" class="py-20 lg:py-28 border-t border-white/10 bg-[#0b0b12]">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-14">
+                
+                <!-- Section Header -->
+                <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kit18-pink/20 border border-kit18-pink/40 text-kit18-pink text-xs font-bold uppercase tracking-widest mb-3">
+                            Блок 02 • Рожево-чорна форма
+                        </div>
+                        <h2 class="font-display text-5xl sm:text-6xl font-bold uppercase text-white leading-none">
+                            ДИНАМІКА ТА ДРИБЛІНГ <span class="text-kit18-pink">• НОМЕР #18</span>
+                        </h2>
+                    </div>
+                    <p class="text-gray-400 text-sm sm:text-base max-w-md">
+                        Швидкісні проходи на відкритому газоні, впевнена гра лівою і правою ногою та миттєве прийняття рішень у русі.
+                    </p>
+                </div>
+
+                <!-- 3-Card Stylish Grid for #18 Photos -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Photo 4 -->
+                    <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-kit18-pink/60 overflow-hidden shadow-2xl transition flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-black cursor-pointer" onclick="openLightbox(3)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_2026-10-21_00-37-45.jpg"
+                                onerror="this.src='https://placehold.co/800x600/831843/ffffff?text=%2318+Vision'"
+                                alt="Бачення поля та холоднокровність" 
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-xl bg-black/75 text-kit18-pink border border-kit18-pink/40 text-xs font-bold">
+                                #18 • IQ & VISION
+                            </span>
+                        </div>
+                        <div class="p-7 space-y-2 flex-1">
+                            <h3 class="font-display text-3xl font-bold uppercase text-white">
+                                Бачення поля та холоднокровність
+                            </h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Спокій та впевнена усмішка під час матчу. Розуміння гри на крок вперед дозволяє уникати пресингу суперника.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Photo 1 -->
+                    <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-kit18-pink/60 overflow-hidden shadow-2xl transition flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-black cursor-pointer" onclick="openLightbox(4)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_7_2026-10-21_00-02-09.jpg" 
+                                onerror="this.src='https://placehold.co/800x600/831843/ffffff?text=%2318+Left+Foot'"
+                                alt="Робота лівою ногою та пас" 
+                                class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-xl bg-kit18-pink text-white text-xs font-bold">
+                               
+                            </span>
+                        </div>
+                        <div class="p-7 space-y-2 flex-1">
+                            <h3 class="font-display text-3xl font-bold uppercase text-white">
+                                Робота лівою ногою та пас
+                            </h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Технічне ведення м'яча та підготовка загострюючої передачі лівою ногою у динамічній фазі атаки.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Photo 2 -->
+                    <div class="reveal group rounded-[2rem] bg-carddark border border-white/10 hover:border-kit18-pink/60 overflow-hidden shadow-2xl transition flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-black cursor-pointer" onclick="openLightbox(5)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_2_2026-10-21_00-02-09.jpg"                                onerror="this.src='https://placehold.co/800x600/831843/ffffff?text=%2318+Dribbling'"
+                                alt="Швидкісний дриблінг на фланзі" 
+                                class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700"
+                            >
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-xl bg-black/75 text-cyan-300 border border-cyan-400/40 text-xs font-bold">
+                                #18 • PACE 91
+                            </span>
+                        </div>
+                        <div class="p-7 space-y-2 flex-1">
+                            <h3 class="font-display text-3xl font-bold uppercase text-white">
+                                Швидкісний дриблінг на фланзі
+                            </h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Стрімкий ривок із м'ячем під повним контролем. Висока частота кроку робить обіграш один в один максимально ефективним.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCK 3: ПОЗА ПОЛЕМ (ЖИВІ ЕМОЦІЇ + СПРАВЖНІЙ TELEGRAM КРУЖЕЧОК) -->
+        <section id="off-pitch" class="py-20 lg:py-28 border-t border-white/10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-14">
+                
+                <!-- Section Header -->
+                <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-widest mb-3">
+                            Блок 03 • Живі емоції та характер
+                        </div>
+                        <h2 class="font-display text-5xl sm:text-6xl font-bold uppercase text-white leading-none">
+                            ПОЗА ПОЛЕМ <span class="text-ksl-gold">• ЕНЕРГІЯ ТА ВАЙБ</span>
+                        </h2>
+                    </div>
+                    <p class="text-gray-400 text-sm sm:text-base max-w-md">
+                        Атмосфера в роздягальні та поза стадіоном: щирі емоції, харизма та справжній командний дух.
+                    </p>
+                </div>
+
+                <!-- 2-Column Layout: Vertical Story Photo + Real Round Telegram Video -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Left: Vertical Story Photo (photo_3) -->
+                    <div class="reveal lg:col-span-5 flex justify-center">
+                        <div class="group relative w-full max-w-[360px] rounded-[2rem] overflow-hidden bg-carddark border border-white/15 hover:border-ksl-gold/50 shadow-2xl cursor-pointer transition" onclick="openLightbox(6)">
+                            <img 
+                                src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\photo_3_2026-10-21_00-02-09.jpg"
+                                onerror="this.src='https://placehold.co/600x1050/111827/ffffff?text=Story+23%3A57'"
+                                alt="Богдан Загребельний — Сторіс" 
+                                class="w-full h-auto object-cover group-hover:scale-105 transition duration-700"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-5 left-5 right-5">
+                                <span class="px-3 py-1 rounded-lg bg-ksl-gold text-black text-xs font-bold uppercase">
+                                    Сторіс • 23:57
+                                </span>
+                                <h3 class="font-display text-3xl font-bold uppercase text-white mt-2">
+                                    Щирі емоції та позитив
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Real Round Telegram Video Note (doc_2026-10-20_23-55-55.mp4) -->
+                    <div class="reveal lg:col-span-7">
+                        <div class="rounded-[2.5rem] bg-carddark border border-white/15 p-8 sm:p-12 shadow-2xl flex flex-col items-center text-center space-y-7 relative overflow-hidden">
+                            <div class="absolute -top-24 -right-24 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs font-bold uppercase tracking-widest">
+                                <i class="fa-brands fa-telegram text-sm"></i> Оригінальний відео-кружечок Telegram
+                            </div>
+
+                            <!-- Circular Video Player Frame -->
+                            <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full p-1.5 bg-gradient-to-tr from-sky-400 via-ksl-purple to-ksl-gold shadow-2xl shadow-sky-500/20 cursor-pointer group" onclick="toggleTelegramVideo()">
+                                <div class="w-full h-full rounded-full overflow-hidden bg-black relative">
+                                    <video 
+                                        id="tgVideo" 
+                                        src="C:\Users\tidim\OneDrive\Робочий стіл\BphdanZaebelniy\doc_2026-10-20_23-55-55.mp4"
+                                        playsinline 
+                                        loop 
+                                        muted
+                                        autoplay
+                                        class="w-full h-full object-cover scale-105"
+                                    ></video>
+
+                                    <!-- Telegram Badge Inside Circle -->
+                                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1.5 border border-white/15">
+                                        <i id="tgSoundIcon" class="fa-solid fa-volume-xmark text-sky-400"></i>
+                                        <span id="tgSoundLabel">Увімкнути звук</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="max-w-md space-y-2">
+                                <h3 class="font-display text-4xl font-bold uppercase text-white">
+                                    Живий настрій після гри
+                                </h3>
+                                <p class="text-gray-400 text-sm sm:text-base">
+                                    Натисни на кружечок або кнопку нижче, щоб переглянути відео зі звуком або поставити на паузу.
+                                </p>
+                            </div>
+
+                            <!-- Simple Video Control Buttons -->
+                            <div class="flex flex-wrap items-center justify-center gap-3">
+                                <button onclick="toggleTelegramVideo()" class="px-6 py-3 rounded-2xl bg-sky-500 hover:bg-sky-400 text-black font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-sky-500/20">
+                                    <i id="btnAudioIcon" class="fa-solid fa-volume-high"></i>
+                                    <span id="btnAudioText">Дивитися зі звуком</span>
+                                </button>
+                                <button onclick="restartTelegramVideo()" class="px-5 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-gray-200 font-semibold text-sm transition flex items-center gap-2">
+                                    <i class="fa-solid fa-rotate-right"></i> Спочатку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MINIMALIST FOOTER -->
+    <footer class="border-t border-white/10 py-10 bg-[#050508]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="flex items-center gap-3">
+                <span class="font-display text-2xl font-bold text-ksl-gold">#77 / #18</span>
+                <span class="text-gray-300 font-semibold">БОГДАН ЗАГРЕБЕЛЬНИЙ</span>
+            </div>
+            <div>
+                Персональна футбольна презентація • Україна 🇺🇦
+            </div>
+        </div>
+    </footer>
+
+    <!-- SIMPLE FULLSCREEN LIGHTBOX MODAL -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4" onclick="closeLightboxOnBg(event)">
+        <button onclick="closeLightbox()" class="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition z-10">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <button onclick="stepLightbox(-1)" class="absolute left-4 sm:left-8 w-11 h-11 rounded-full bg-white/10 hover:bg-ksl-purple text-white flex items-center justify-center transition z-10">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="max-w-5xl w-full flex flex-col items-center">
+            <img id="lightboxImg" src="" alt="Фото на весь екран" class="max-h-[82vh] max-w-full object-contain rounded-2xl border border-white/15 shadow-2xl">
+            <p id="lightboxCaption" class="text-white font-semibold text-sm sm:text-base mt-4 text-center"></p>
+        </div>
+
+        <button onclick="stepLightbox(1)" class="absolute right-4 sm:right-8 w-11 h-11 rounded-full bg-white/10 hover:bg-ksl-purple text-white flex items-center justify-center transition z-10">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- SCRIPTS: 3D CARD TILT, SCROLL REVEAL, VIDEO CIRCLE & LIGHTBOX -->
+    <script>
+        // 1. 3D Tilt & Holographic Glare for FUT Card
+        const futCard = document.getElementById('futCard');
+        const futGlare = document.getElementById('futGlare');
+
+        if (futCard) {
+            futCard.addEventListener('mousemove', (e) => {
+                const rect = futCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                futCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                futGlare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(250, 204, 21, 0.35), rgba(124, 58, 237, 0.18) 45%, transparent 70%)`;
+            });
+
+            futCard.addEventListener('mouseleave', () => {
+                futCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        }
+
+        // 2. Smooth Scroll Reveal via IntersectionObserver
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 3. Telegram Circular Video Controls
+        const tgVideo = document.getElementById('tgVideo');
+        const tgSoundIcon = document.getElementById('tgSoundIcon');
+        const tgSoundLabel = document.getElementById('tgSoundLabel');
+        const btnAudioIcon = document.getElementById('btnAudioIcon');
+        const btnAudioText = document.getElementById('btnAudioText');
+
+        function toggleTelegramVideo() {
+            if (!tgVideo) return;
+            if (tgVideo.muted) {
+                tgVideo.muted = false;
+                tgVideo.currentTime = 0;
+                tgVideo.play();
+                tgSoundIcon.className = 'fa-solid fa-volume-high text-ksl-gold';
+                tgSoundLabel.textContent = 'Звук увімкнено';
+                btnAudioIcon.className = 'fa-solid fa-volume-xmark';
+                btnAudioText.textContent = 'Вимкнути звук';
+            } else {
+                tgVideo.muted = true;
+                tgSoundIcon.className = 'fa-solid fa-volume-xmark text-sky-400';
+                tgSoundLabel.textContent = 'Увімкнути звук';
+                btnAudioIcon.className = 'fa-solid fa-volume-high';
+                btnAudioText.textContent = 'Дивитися зі звуком';
+            }
+        }
+
+        function restartTelegramVideo() {
+            if (!tgVideo) return;
+            tgVideo.currentTime = 0;
+            tgVideo.muted = false;
+            tgVideo.play();
+            tgSoundIcon.className = 'fa-solid fa-volume-high text-ksl-gold';
+            tgSoundLabel.textContent = 'Звук увімкнено';
+            btnAudioIcon.className = 'fa-solid fa-volume-xmark';
+            btnAudioText.textContent = 'Вимкнути звук';
+        }
+
+        // 4. Lightbox for All 7 Photos
+        const galleryItems = [
+            { src: 'photo_6_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #77 KSL — Концентрація та лідерство на полі' },
+            { src: 'photo_5_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #77 KSL — Техніка роботи з м’ячем у повітрі' },
+            { src: 'photo_7_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #77 KSL — Контроль м’яча SELECT поблизу воріт' },
+            { src: 'photo_4_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #18 — Бачення поля та холоднокровність' },
+            { src: 'photo_1_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #18 — Робота лівою ногою та пас' },
+            { src: 'photo_2_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • #18 — Швидкісний дриблінг на фланзі' },
+            { src: 'photo_3_2026-10-21_00-02-09.jpg', caption: 'Богдан Загребельний • Поза полем — Живі емоції' }
+        ];
+
+        let activePhotoIndex = 0;
+
+        function openLightbox(index) {
+            activePhotoIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        function closeLightboxOnBg(e) {
+            if (e.target.id === 'lightbox') closeLightbox();
+        }
+
+        function stepLightbox(dir) {
+            activePhotoIndex = (activePhotoIndex + dir + galleryItems.length) % galleryItems.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const item = galleryItems[activePhotoIndex];
+            document.getElementById('lightboxImg').src = item.src;
+            document.getElementById('lightboxCaption').textContent = item.caption;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('lightbox');
+            if (!lb.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') stepLightbox(1);
+                if (e.key === 'ArrowLeft') stepLightbox(-1);
+            }
+        });
+    </script>
+</body>
+</html>
